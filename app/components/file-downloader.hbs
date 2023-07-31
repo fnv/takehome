@@ -1,1 +1,47 @@
-{{yield}}
+<div class="file-downloader">
+  <div>
+    <Input
+      aria-label="Select/deselect all"
+      @type="checkbox"
+      @checked={{this.selectAllChecked}}
+      indeterminate={{this.selectAllIndeterminate}}
+      {{on "change" this.toggleAll}}
+    />
+    <span>{{this.selectionText}}</span>
+    <button type="button" {{on "click" this.download}}>
+      Icon
+    </button>
+    <span>
+      Download Selected
+    </span>
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Device</th>
+      <th>Path</th>
+      <th class="status">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each this.files as |file index|}}
+      <tr class="{{if file.selected 'selected-row' ''}}">
+        <td>
+          <Input
+            aria-label="Select this file"
+            @type="checkbox"
+            @checked={{file.selected}}
+            {{on "change" (fn this.toggleRowByIndex index)}}
+          />
+        </td>
+        <td>{{file.name}}</td>
+        <td>{{file.device}}</td>
+        <td>{{file.path}}</td>
+        <td class="status {{file.status}}">{{file.status}}</td>
+      </tr>  
+    {{/each}}
+    </tbody>
+  </table>
+</div>

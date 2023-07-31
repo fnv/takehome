@@ -1,0 +1,38 @@
+.file-downloader {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.file-downloader table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.file-downloader td, .file-downloader th {
+  padding: 0.5em;
+}
+
+.file-downloader th {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  text-align: left;
+}
+
+.file-downloader tbody tr:hover {
+  background-color: #eee;
+}
+
+.file-downloader tbody tr.selected-row {
+  background-color: #ccc;
+}
+
+.file-downloader th.status::before, .file-downloader td.status::before {
+  content: "⬤";
+  margin-right: 0.25em;
+  color: #0000;
+}
+
+.file-downloader tbody td.available::before {
+  content: "⬤";
+  margin-right: 0.25em;
+  color: #0f0;
+}

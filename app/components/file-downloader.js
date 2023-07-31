@@ -79,6 +79,9 @@ export default class FileDownloaderComponent extends Component {
     let alertStrings = selectedFiles.map((file) => {
       return `${file.path} ${file.device}`;
     });
+    if (alertStrings.length === 0) {
+      alertStrings.push('No available files selected.')
+    }
     alert(alertStrings.join('\n'));
   }
 

@@ -1,10 +1,33 @@
 .file-downloader {
   font-family: Arial, Helvetica, sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.file-downloader .input, .file-downloader button{
+  cursor: pointer;
+}
+
+.file-downloader .table-header-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.file-downloader .table-header-item {
+  flex: 0 1 auto;
+  margin: 1em;
 }
 
 .file-downloader table {
   border-collapse: collapse;
   width: 100%;
+}
+
+.file-downloader thead tr {
+  border-top: 0.1em solid #eee;
+}
+
+.file-downloader tr {
+  border-bottom: 0.1em solid #eee;
 }
 
 .file-downloader td, .file-downloader th {
@@ -34,5 +57,5 @@
 .file-downloader tbody td.available::before {
   content: "⬤";
   margin-right: 0.25em;
-  color: #0f0;
+  color: limegreen;
 }

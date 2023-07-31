@@ -1,15 +1,16 @@
 <div class="file-downloader">
-  <div>
+  <div class="table-header-container">
     <Input
-      class="select-all"
+      class="input select-all table-header-item"
       aria-label="Select or deselect all"
       @type="checkbox"
       @checked={{this.selectAllChecked}}
       indeterminate={{this.selectAllIndeterminate}}
       {{on "change" this.toggleAll}}
     />
-    <span class="selection-text">{{this.selectionText}}</span>
+    <span class="selection-text table-header-item">{{this.selectionText}}</span>
     <button
+      class="table-header-item"
       aria-label="Download selected files"
       type="button"
       {{on "click" this.download}}
@@ -32,6 +33,7 @@
       <tr class="{{if file.selected 'selected-row' ''}}">
         <td>
           <Input
+            class="input"
             aria-label="Select file"
             @type="checkbox"
             @checked={{file.selected}}

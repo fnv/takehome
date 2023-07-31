@@ -3,6 +3,7 @@
     <label class="selection-text table-header-item">
       <Input
         class="input select-all"
+        title="Select all"
         @type="checkbox"
         @checked={{this.isSelectAllChecked}}
         indeterminate={{this.isSelectAllIndeterminate}}
@@ -36,6 +37,7 @@
           <Input
             class="input"
             aria-label="Select file"
+            title="Select file"
             @type="checkbox"
             @checked={{file.selected}}
             {{on "change" (fn this.toggleRowByIndex index)}}

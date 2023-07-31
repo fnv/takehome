@@ -1,19 +1,21 @@
 <div class="file-downloader">
   <div>
     <Input
-      aria-label="Select/deselect all"
+      class="select-all"
+      aria-label="Select or deselect all"
       @type="checkbox"
       @checked={{this.selectAllChecked}}
       indeterminate={{this.selectAllIndeterminate}}
       {{on "change" this.toggleAll}}
     />
-    <span>{{this.selectionText}}</span>
-    <button type="button" {{on "click" this.download}}>
-      Icon
+    <span class="selection-text">{{this.selectionText}}</span>
+    <button
+      aria-label="Download selected files"
+      type="button"
+      {{on "click" this.download}}
+    >
+      ↓ Download Selected
     </button>
-    <span>
-      Download Selected
-    </span>
   </div>
   <table>
     <thead>
@@ -30,7 +32,7 @@
       <tr class="{{if file.selected 'selected-row' ''}}">
         <td>
           <Input
-            aria-label="Select this file"
+            aria-label="Select file"
             @type="checkbox"
             @checked={{file.selected}}
             {{on "change" (fn this.toggleRowByIndex index)}}

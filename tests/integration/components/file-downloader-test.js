@@ -1,26 +1,96 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ted-nichols-takehome/tests/helpers';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | file-downloader', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function (assert) {
+  test('it renders with none selected', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<FileDownloader />`);
+    this.set('model', [
+      {
+        name: 'smss.exe',
+        device: 'Stark',
+        path: '\\Device\\HarddiskVolume2\\Windows\\System32\\smss.exe',
+        status: 'scheduled',
+      },
+      {
+        name: 'netsh.exe',
+        device: 'Targaryen',
+        path: '\\Device\\HarddiskVolume2\\Windows\\System32\\netsh.exe',
+        status: 'available',
+      },
+      {
+        name: 'uxtheme.dll',
+        device: 'Lannister',
+        path: '\\Device\\HarddiskVolume1\\Windows\\System32\\uxtheme.dll',
+        status: 'available',
+      },
+      {
+        name: 'cryptbase.dll',
+        device: 'Martell',
+        path: '\\Device\\HarddiskVolume1\\Windows\\System32\\cryptbase.dll',
+        status: 'scheduled',
+      },
+      {
+        name: '7za.exe',
+        device: 'Baratheon',
+        path: '\\Device\\HarddiskVolume1\\temp\\7za.exe',
+        status: 'scheduled',
+      },
+    ]);
 
-    assert.dom(this.element).hasText('');
+    await render(hbs`<FileDownloader @files={{this.model}}/>`);
 
-    // Template block usage:
-    await render(hbs`
-      <FileDownloader>
-        template block text
-      </FileDownloader>
-    `);
+    assert.dom('.selection-text').hasText('None Selected');
+  });
 
-    assert.dom(this.element).hasText('template block text');
+  test('clicking select all selects all', async function (assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.set('myAction', function(val) { ... });
+
+    this.set('model', [
+      {
+        name: 'smss.exe',
+        device: 'Stark',
+        path: '\\Device\\HarddiskVolume2\\Windows\\System32\\smss.exe',
+        status: 'scheduled',
+      },
+      {
+        name: 'netsh.exe',
+        device: 'Targaryen',
+        path: '\\Device\\HarddiskVolume2\\Windows\\System32\\netsh.exe',
+        status: 'available',
+      },
+      {
+        name: 'uxtheme.dll',
+        device: 'Lannister',
+        path: '\\Device\\HarddiskVolume1\\Windows\\System32\\uxtheme.dll',
+        status: 'available',
+      },
+      {
+        name: 'cryptbase.dll',
+        device: 'Martell',
+        path: '\\Device\\HarddiskVolume1\\Windows\\System32\\cryptbase.dll',
+        status: 'scheduled',
+      },
+      {
+        name: '7za.exe',
+        device: 'Baratheon',
+        path: '\\Device\\HarddiskVolume1\\temp\\7za.exe',
+        status: 'scheduled',
+      },
+    ]);
+
+    await render(hbs`<FileDownloader @files={{this.model}}/>`);
+
+    assert.dom('.selection-text').hasText('None Selected');
+
+    await click('.select-all');
+
+    assert.dom('.selection-text').hasText('Selected 5');
   });
 });

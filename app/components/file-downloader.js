@@ -34,6 +34,9 @@ export default class FileDownloaderComponent extends Component {
     }
   }
 
+  // setter required to prevent TypeError
+  set selectAllChecked(val) {}
+
   get selectAllIndeterminate() {
     if (
       this.selectedRows.length === this.files.length ||
@@ -90,7 +93,6 @@ export default class FileDownloaderComponent extends Component {
 
   @action
   toggleAll() {
-    console.log(this.selectedRows.length);
     if (this.selectedRows.length === this.files.length) {
       this.files.forEach((file, index) => {
         this.files[index].selected = false;

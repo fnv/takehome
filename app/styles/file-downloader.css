@@ -3,7 +3,7 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.file-downloader .input, .file-downloader button{
+.file-downloader .input, .file-downloader button, .file-downloader .selection-text{
   cursor: pointer;
 }
 
@@ -15,6 +15,7 @@
 .file-downloader .table-header-item {
   flex: 0 1 auto;
   margin: 1em;
+  min-width: 8.25em;
 }
 
 .file-downloader table {

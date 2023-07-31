@@ -15,18 +15,22 @@ export default class FileDownloaderComponent extends Component {
 
   constructor(owner, args) {
     super(owner, args);
-    this.files = this.args.files.map((givenFile) => {
-      let file = new File();
-      file.selected = false;
-      file.name = givenFile.name;
-      file.device = givenFile.device;
-      file.path = givenFile.path;
-      file.status = givenFile.status;
-      return file;
-    });
+    this.files = this.args.files
+      .filter((givenFile) => {
+        return givenFile.name && givenFile.name.length > 0;
+      })
+      .map((givenFile) => {
+        let file = new File();
+        file.selected = false;
+        file.name = givenFile.name || 'None';
+        file.device = givenFile.device || 'None';
+        file.path = givenFile.path || '';
+        file.status = givenFile.status || 'unknown';
+        return file;
+      });
   }
 
-  get selectAllChecked() {
+  get isSelectAllChecked() {
     if (this.selectedRows.length === this.files.length) {
       return true;
     } else {
@@ -35,9 +39,9 @@ export default class FileDownloaderComponent extends Component {
   }
 
   // setter required to prevent TypeError
-  set selectAllChecked(val) {}
+  set isSelectAllChecked(val) {}
 
-  get selectAllIndeterminate() {
+  get isSelectAllIndeterminate() {
     if (
       this.selectedRows.length === this.files.length ||
       this.selectedRows.length === 0
@@ -80,7 +84,7 @@ export default class FileDownloaderComponent extends Component {
       return `${file.path} ${file.device}`;
     });
     if (alertStrings.length === 0) {
-      alertStrings.push('No available files selected.')
+      alertStrings.push('No available files selected.');
     }
     alert(alertStrings.join('\n'));
   }

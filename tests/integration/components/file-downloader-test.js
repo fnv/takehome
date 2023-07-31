@@ -49,9 +49,6 @@ module('Integration | Component | file-downloader', function (hooks) {
   });
 
   test('clicking select all selects all', async function (assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
     this.set('model', [
       {
         name: 'smss.exe',
@@ -92,5 +89,48 @@ module('Integration | Component | file-downloader', function (hooks) {
     await click('.select-all');
 
     assert.dom('.selection-text').hasText('Selected 5');
+  });
+
+  test('empty model', async function (assert) {
+    this.set('model', []);
+
+    await render(hbs`<FileDownloader @files={{this.model}}/>`);
+
+    assert.dom('.selection-text').hasText('None Selected');
+
+    await click('.select-all');
+
+    assert.dom('.selection-text').hasText('None Selected');
+  });
+
+  test('none in list are available', async function (assert) {
+    this.set('model', [
+      {
+        name: 'smss.exe',
+        device: 'Stark',
+        path: '\\Device\\HarddiskVolume2\\Windows\\System32\\smss.exe',
+        status: 'scheduled',
+      },
+    ]);
+
+    await render(hbs`<FileDownloader @files={{this.model}}/>`);
+
+    assert.dom('.selection-text').hasText('None Selected');
+
+    await click('.select-all');
+
+    assert.dom('.selection-text').hasText('Selected 1');
+  });
+
+  test('bad file object', async function (assert) {
+    this.set('model', [
+      {
+        blah: 'cool',
+      },
+    ]);
+
+    await render(hbs`<FileDownloader @files={{this.model}}/>`);
+
+    assert.dom('.selection-text').hasText('None Selected');
   });
 });
